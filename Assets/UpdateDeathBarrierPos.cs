@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class UpdateDeathBarrierPos : MonoBehaviour
 {
-    [SerializeField] EndGameDisplay endGameDisplay;
+    [SerializeField] PlatformHandler platformHandler;
+    Vector2 _deathBarrierPos = Vector2.zero;
 
-    BoxCollider2D collider;
 
-    private void Start()
+    private void Update()
     {
-        collider = GetComponent<BoxCollider2D>();
+        UpdatePos();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void UpdatePos()
     {
-        collider.enabled = false;
-
-        if (collision.gameObject.name == "Player")
+        if (platformHandler._bottomeScreenPlatform != null)
         {
-            endGameDisplay.DisplayEndGameScreen();
+            _deathBarrierPos = new Vector2(0, platformHandler._bottomeScreenPlatform.y);
+            transform.position = _deathBarrierPos;
         }
     }
+
+
+
+
 }
